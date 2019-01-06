@@ -7,7 +7,7 @@ module.exports = function(app, User)
 			if(err)
 				return res.json({result: 0});
 			if(user) 
-				return res.send("There already exist user");
+				return res.json({result: 1});
 			var user = new User();
 			user.id = req.body.id;
 			user.password = req.body.password;
@@ -16,7 +16,7 @@ module.exports = function(app, User)
 			user.save(function(err){
 				if(err){
 					console.error(err);
-					res.json({result: 1});
+					res.json({result: 0});
 					return;
 				}
 
