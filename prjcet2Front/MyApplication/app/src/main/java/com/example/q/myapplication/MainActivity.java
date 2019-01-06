@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void toastData(String result){
         Integer resultInt = Integer.parseInt(result);
-        Intent intent = new Intent(this, NewMember.class);
+        Intent intent = new Intent(this, FragmentActivity.class);
 
         if(resultInt == 0){
             Toast toast = Toast.makeText(this, "Database Error.", Toast.LENGTH_SHORT);
