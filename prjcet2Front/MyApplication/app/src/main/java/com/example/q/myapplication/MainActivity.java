@@ -84,11 +84,17 @@ public class MainActivity extends AppCompatActivity {
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
+
                         mDialog.dismiss();
                         Log.d("aaaa", object.toString());
                         Log.d("aaaa", loginResult.getAccessToken().getUserId());
                         Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
-                        intent.putExtra("facebook", object.toString());
+                        JSONObject jsonObject = (JSONObject) object;
+                        try {
+                            intent.putExtra("facebook", jsonObject.get("id").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         intent.putExtra("key", "login_facebook");
                         startActivity(intent);
                         finish();

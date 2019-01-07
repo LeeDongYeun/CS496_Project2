@@ -46,13 +46,18 @@ module.exports = function(app, User)
 		User.findOne({id: req.params.id}, function(err, user){
 			console.log(user);
 			console.log(user.contact);
-			//res.json(user.contact);
 
-			var data = {name : "a", number : "01000000000"};
-			var data2 = {name : "b", number : "01011111111"};
-			user.contact.push(data);
-			user.contact.push(data2);
 			res.json(user.contact);
+			console.log(user.contact);
+		});
+	});
+
+	app.get('/api/photo/:id', function(req, res){
+		User.findOne({id: req.params.id}, function(err, user){
+			console.log(user);
+			console.log(user.photo);
+
+			res.json(user.photo);
 			console.log(user.contact);
 		});
 	});

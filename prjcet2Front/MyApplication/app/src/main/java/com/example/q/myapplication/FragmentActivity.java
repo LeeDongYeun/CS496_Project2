@@ -1,5 +1,6 @@
 package com.example.q.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,19 @@ public class FragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-        //setSupportActionBar : 액션바 설정
-        //toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        String memid;
+        String key = intent.getStringExtra("key");
+        Log.d("aaa", key);
+        if(key =="login_facebook"){
+            memid = intent.getStringExtra("facebook");
+            Log.d("aaa", memid);
+        }
+        else{
+            memid = intent.getStringExtra("memberID");
+            Log.d("aaa", memid);
+        }
+
 
         //액션바 기본 타이틀 보여지지 않게
         ActionBar actionBar = getSupportActionBar();
@@ -31,7 +42,7 @@ public class FragmentActivity extends AppCompatActivity {
 
         //Fragment : 탭 클릭시 보여줄 화면들
         fragment1 = new Fragment1();
-        fragment2 = new Fragment2();
+        fragment2 = new Fragment2(memid);
         fragment3 = new Fragment3();
 
         //기본으로 첫번째 Fragment를 보여지도록 설정
