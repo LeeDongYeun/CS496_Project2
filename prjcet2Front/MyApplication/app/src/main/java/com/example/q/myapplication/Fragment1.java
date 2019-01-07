@@ -42,52 +42,19 @@ public class Fragment1 extends Fragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                try {
-//                    String rawJSON = "{\n" +
-//                            "\t\"attempts\": 5,\n" +
-//                            "\t\"autorun\": false,\n" +
-//                            "\t\"defaultExtension\": \".html\",\n" +
-//                            "\t\"interval\": 500,\n" +
-//                            "\t\"mimetypes\":\n" +
-//                            "\t{\n" +
-//                            "\t\t\"\": \"application/octet-stream\",\n" +
-//                            "\t\t\".c\": \"text/plain\",\n" +
-//                            "\t\t\".h\": \"text/plain\",\n" +
-//                            "\t\t\".py\": \"text/plain\"\n" +
-//                            "\t},\n" +
-//                            "\t\"port\": 8080\n" +
-//                            "}\n";
-
-//                    JSONObject root = new JSONObject(rawJSON);
-//                    JSONObject data = root.getJSONObject("data");
-//                    Integer count = data.getInt("count");
-//                    JSONArray contacts = data.getJSONArray("contacts");
-//
-//                    for (int i = 0; i < contacts.length(); i++) {
-//                        JSONObject contact = (JSONObject) contacts.get(i);
-//                        list.add(new list_item(contact.getString("Name"), contact.getString("PhoneNumber")));
-//                    }
-//                }
-//                catch {
-//                    Log.d("Fragment1", "parsing failed");
-//                }
-//                list.add(new list_item("Lee", "12345"));
-//                list.add(new list_item("abababa", "12413131345"));
 
                 Log.d("Fragment1", "Clicked");
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
                 // Initialize a new JsonArrayRequest instance
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                        Request.Method.POST,
-                        "http://127.0.0.1:8080/test/test.json",
+                        Request.Method.GET,
+                        "http://socrip3.kaist.ac.kr:5580/api/contact/d",
                         new JSONArray(),
                         new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray response) {
-                                // Do something with response
-                                //mTextView.setText(response.toString());
-                                Log.d("Fragment1", "0");
+
                                 // Process the JSON
                                 try {
                                     JSONArray contacts = response;
@@ -95,17 +62,12 @@ public class Fragment1 extends Fragment {
                                     for (int i = 0; i < contacts.length(); i++) {
                                         JSONObject contact = contacts.getJSONObject(i);
 
-                                        String name = contact.getString("Name");
-                                        String phoneNumber = contact.getString("PhoneNumber");
+                                        String name = contact.getString("name");
+                                        String phoneNumber = contact.getString("number");
 //                                        if (checkExistence != 0) {
                                         list.add(new list_item(name, phoneNumber));
                                         Log.d("addwithExistence", "Yeah");
-//
-//                                        } else {
-//                                            list.add(new list_item(nam));
-//                                            //Log.d("addwithExistence", "Nooo");
-//                                        }
-                                        //Log.d("list_size", String.valueOf(list_itemArrayList.size()));
+
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -116,8 +78,6 @@ public class Fragment1 extends Fragment {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.d("Fragment1", error.toString());
-                                // Do something when error occurred
-//                                testText.setText("error");
                             }
                         }
                 );
