@@ -22,8 +22,9 @@ mongoose.connect('mongodb://localhost/project2');
 var User = require('./models/user');
 
 // [CONFIGURE APP TO USE bodyParser]
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit : '50mb'}))
+app.use(bodyParser.urlencoded({ extended: true, limit : '50mb' }));
+
 
 // [CONFIGURE SERVER PORT]
 

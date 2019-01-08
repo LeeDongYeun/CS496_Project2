@@ -23,17 +23,18 @@ public class FragmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment);
 
         Intent intent = getIntent();
-        String memid;
+        String memid = "";
         String key = intent.getStringExtra("key");
         Log.d("aaa", key);
-        if(key =="login_facebook"){
+        if(key.equals("login_facebook")){
             memid = intent.getStringExtra("facebook");
             Log.d("aaa", memid);
         }
-        else{
+        else if(key.equals("login_own")){
             memid = intent.getStringExtra("memberID");
             Log.d("aaa", memid);
         }
+        Log.d("aaa", memid);
 
 
         //액션바 기본 타이틀 보여지지 않게
@@ -53,8 +54,6 @@ public class FragmentActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("연락처"));
         tabs.addTab(tabs.newTab().setText("사진첩"));
         tabs.addTab(tabs.newTab().setText("할 일"));
-
-
 
         //탭 선택리스너
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){

@@ -46,9 +46,10 @@ module.exports = function(app, User)
 		User.findOne({id: req.params.id}, function(err, user){
 			console.log(user);
 			console.log(user.contact);
-
+			if(!user.contact)
+				return res.json([]);
 			res.json(user.contact);
-			console.log(user.contact);
+			//console.log(user.contact);
 		});
 	});
 
@@ -61,5 +62,46 @@ module.exports = function(app, User)
 			console.log(user.contact);
 		});
 	});
-	
+
+	app.post('/api/photo/add', function(req, res){
+		console.log("adsf");
+		var id = req.body.id;
+		var fileString = req.body.fileString;
+		var option = {upsert : true, new : true, useFindAndModify : false}
+
+		newData = {fileString : fileString};
+		console.log(newData);
+		User.findOneAndUpdate({id: req.body.id}, {$push : {photo : newData}}, option, function(error, change){
+			if(error){
+				console.log(error);
+				res.json({result: 0});
+			}
+			else{
+				console.log("success");
+				res.json({result: 1});
+			}
+		});
+	});
+
+	app.post('/api/contact/add', function(req, res){
+		console.log("adsfasdf");
+		var id = req.body.id;
+		var name = req.body.name;
+		var number = req.body.number;
+		var option = {upsert : true, new : true, useFindAndModify : false}
+
+		newData = {name : name, number : number};
+		console.log(newData);
+		User.findOneAndUpdate({id: req.body.id}, {$push : {contact : newData}}, option, function(error, change){
+			if(error){
+				console.log(error);
+				res.json({result: 0});
+			}
+			else{
+				console.log("success");
+				res.json({result: 1});
+			}
+		});
+	});
+
 }
