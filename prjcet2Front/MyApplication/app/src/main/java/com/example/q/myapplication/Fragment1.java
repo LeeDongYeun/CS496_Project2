@@ -1,5 +1,6 @@
 package com.example.q.myapplication;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -39,6 +40,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 //i
+@SuppressLint("ValidFragment")
 public class Fragment1 extends Fragment {
     ListView listView;
     CustomListAdapter adapter;
@@ -46,6 +48,18 @@ public class Fragment1 extends Fragment {
     AlertDialog.Builder builder;
     ArrayList<Person> contact = new ArrayList<>();
     FloatingActionButton floatbutton;
+    String memid;
+
+    public Fragment1(String memid) {
+        this.memid = memid;
+        Log.d("aaa", memid);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +74,7 @@ public class Fragment1 extends Fragment {
         // Initialize a new JsonArrayRequest instance
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                "http://socrip3.kaist.ac.kr:5580/api/contact/d",
+                "http://socrip3.kaist.ac.kr:5580/api/contact/" + memid,
                 new JSONArray(),
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -104,6 +118,7 @@ public class Fragment1 extends Fragment {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     Intent intent = new Intent(getActivity(), AddContact.class);
+                                    intent.putExtra("memid", memid);
                                     startActivity(intent);
                                     Toast.makeText(getApplicationContext(), "Successfully uploaded.", Toast.LENGTH_SHORT).show();
                                 }

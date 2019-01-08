@@ -42,9 +42,9 @@ public class FragmentActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         //Fragment : 탭 클릭시 보여줄 화면들
-        fragment1 = new Fragment1();
+        fragment1 = new Fragment1(memid);
         fragment2 = new Fragment2(memid);
-        fragment3 = new Fragment3();
+        //fragment3 = new Fragment3();
 
         //기본으로 첫번째 Fragment를 보여지도록 설정
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
@@ -53,7 +53,7 @@ public class FragmentActivity extends AppCompatActivity {
         TabLayout tabs = (TabLayout)findViewById(R.id.tabs);
         tabs.addTab(tabs.newTab().setText("연락처"));
         tabs.addTab(tabs.newTab().setText("사진첩"));
-        tabs.addTab(tabs.newTab().setText("할 일"));
+        //tabs.addTab(tabs.newTab().setText("할 일"));
 
         //탭 선택리스너
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
@@ -70,9 +70,7 @@ public class FragmentActivity extends AppCompatActivity {
                 else if(position == 1){
                     selected = fragment2;
                 }
-                else if(position == 2){
-                    selected = fragment3;
-                }
+
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
             }

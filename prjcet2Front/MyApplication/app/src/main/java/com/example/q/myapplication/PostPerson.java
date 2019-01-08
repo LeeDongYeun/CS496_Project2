@@ -45,6 +45,7 @@ public class PostPerson {
         String url="http://socrip3.kaist.ac.kr:5580/api/contact/add";
         this.person = person;
         this.memid = memid;
+        Log.d("dddd",memid);
         JSONObject jObject = new JSONObject();
         try {
             jObject.put("id", memid);

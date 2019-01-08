@@ -3,6 +3,7 @@ package com.example.q.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +17,7 @@ import org.json.JSONArray;
 import Contact.Person;
 
 public class AddContact extends Activity {
-    String memid = "d";
+    String memid ;
     private EditText nameTxt;
     private EditText numberTxt;
     private Button addBtn;
@@ -28,6 +29,9 @@ public class AddContact extends Activity {
         nameTxt = findViewById(R.id.nameTxt);
         numberTxt = findViewById(R.id.numberTxt);
         addBtn = findViewById(R.id.addBtn);
+        Intent intent = getIntent();
+        memid = intent.getStringExtra("memid");
+        Log.d("dddd", memid);
     }
 
     @Override
@@ -47,6 +51,8 @@ public class AddContact extends Activity {
 
                 postperson.postPerson(person, memid);
                 Intent intent = new Intent(AddContact.this, FragmentActivity.class);
+                intent.putExtra("memberID", memid);
+                intent.putExtra("key", "login_own");
                 startActivity(intent);
             }
         });
